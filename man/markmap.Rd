@@ -5,11 +5,24 @@
 \title{Create a markmap widget}
 \usage{
 markmap(json, width = NULL, height = NULL, elementId = NULL,
-  options = NULL)
+  options = markmapOption())
+}
+\arguments{
+\item{json}{the path of json file}
+
+\item{width}{the width of the markmap}
+
+\item{height}{the height of the markmap}
+
+\item{options}{the markmap options}
+}
+\value{
+A HTML widget object rendered from a given document.
 }
 \description{
-This function creates a markmap widget using htmlwidgets.The widget can be rendered on HTML pages generated from R Markdown,Shiny,or other applications.
-Options for markmap creation#'
+This function creates a markmap widget using htmlwidgets.
+The widget can be rendered on HTML pages generated from
+R Markdown,Shiny,or other applications.
 }
 \examples{
 gtor.json<-system.file('examples/gtor.json',package = 'Rmarkmap')

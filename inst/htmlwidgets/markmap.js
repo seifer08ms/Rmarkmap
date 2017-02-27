@@ -19,12 +19,12 @@ HTMLWidgets.widget({
 
     renderValue: function(el, x) {
         var elementId = el.id;
-        console.log(x.data);
+        //console.log(x.data);
         var data = JSON.parse(x.data);
         // select the svg element and remove existing children
         var svg = d3.select(el).select("svg");
         svg.selectAll("*").remove();
-        markmap("svg#mindmap", data);
+        markmap("svg#mindmap", data,x.options);
     },
     resize : function(el,width, height) {
         d3.select(el).select("svg")

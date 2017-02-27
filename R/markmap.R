@@ -1,19 +1,25 @@
-#' @title Create a markmap widget
+#' Create a markmap widget
 #'
-#' @description This function creates a markmap widget using htmlwidgets.The widget can be rendered on HTML pages generated from R Markdown,Shiny,or other applications.
-#' Options for markmap creation#'
-#'
+#' This function creates a markmap widget using htmlwidgets.
+#' The widget can be rendered on HTML pages generated from
+#' R Markdown,Shiny,or other applications.
+#' @param json the path of json file
+#' @param width the width of the markmap
+#' @param height the height of the markmap
+#' @param options the markmap options
 #' @import htmlwidgets
+#' @return A HTML widget object rendered from a given document.
 #' @examples
 #' gtor.json<-system.file('examples/gtor.json',package = 'Rmarkmap')
 #' markmap(gtor.json)
 #' @export
-markmap <- function(json, width = NULL, height = NULL, elementId = NULL,options=NULL) {
+markmap <- function(json, width = NULL, height = NULL, elementId = NULL,options=markmapOption()) {
 
     data<-paste(readLines(json),collapse = '\n')
     # forward options using x
     x = list(
-        data = data
+        data = data,
+        options = options
     )
 
 
@@ -27,6 +33,62 @@ markmap <- function(json, width = NULL, height = NULL, elementId = NULL,options=
     elementId = elementId
   )
 }
+#' Options for markmap creation
+#' @param preset the name of built-in theme for markmap. If present, any other parameters will be ignored.
+#' @param nodeHeight the height of nodes in the markmap.
+#' @param nodeWidth the width of nodes in the markmap.
+#' @param spacingVertical space of vertical.
+#' @param spacingHorizontal space of horizontal.
+#' @param duration duration time for animation.
+#' @param layout layout mode of makrmap. Currently, only 'tree' is accepted.
+#' @param color color of markmap. A character color value ,either 'gray' or
+#' a categorical colors including 'category10','category20','category20b' and 'category20c'.
+#' @param linkShape link shape of markmap. A character value, either 'diagonal' or 'bracket'.
+#' @param renderer rendered shaped of markmap. A character value ,either 'basic' or 'boxed'.
+#' @param ... other options.
+#' @describeIn theme Options for markmap creation
+#' @details Currently,markmap have 'default' and 'colorful' themes.
+#' 'colorful' themes have three different parameters from default themes:
+#'  {nodeHeight: 10, renderer: 'basic',color: 'category20'}
+#' @seealso \url{https://github.com/dundalek/markmap/blob/master/view.mindmap.js} for details.
+#' @export
+#' @examples
+#' gtor.json<-system.file('examples/gtor.json',package = 'Rmarkmap')
+#' markmap(jj,options = markmapOption(preset = 'colorful'))
+markmapOption <- function(preset=NULL,nodeHeight=20,
+                          nodeWidth=180,
+                          spacingVertical=10,
+                          spacingHorizontal=120,
+                          duration=750,
+                          layout='tree',
+                          color='gray',#
+                          linkShape='diagonal',
+                          renderer='boxed',...){
+    filterNULL<-function (x) {
+        if (length(x) == 0 || !is.list(x))
+            return(x)
+        x[!unlist(lapply(x, is.null))]
+    }
+    if(!is.null(preset)&&(preset=='default'|preset=='colorful')){
+        filterNULL(list(preset=preset))
+    }else{
+        if (is.null(layout)||(layout!='tree')){
+            warning('Currenly, only tree layout is supported. Changing to tree layout...')
+            layout = 'tree'
+        }
+        filterNULL(list(nodeHeight=nodeHeight,
+                        nodeWidth=nodeWidth,
+                        spacingVertical=spacingVertical,
+                        spacingHorizontal=spacingHorizontal,
+                        duration=duration,
+                        layout='tree',
+                        color=color,
+                        linkShape=linkShape,
+                        renderer=renderer,...))
+    }
+
+}
+
 
 #' Shiny bindings for markmap
 #'
@@ -48,7 +110,6 @@ markmap <- function(json, width = NULL, height = NULL, elementId = NULL,options=
 markmapOutput <- function(outputId, width = '100%', height = '400px'){
   htmlwidgets::shinyWidgetOutput(outputId, 'markmap', width, height, package = 'Rmarkmap')
 }
-
 #' @rdname markmap-shiny
 #' @export
 renderMarkmap <- function(expr, env = parent.frame(), quoted = FALSE) {
