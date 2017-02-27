@@ -1,0 +1,24 @@
+{
+  "depth": 1,
+  "line": 1,
+  "name": "A General Theory of Reactivity",
+  "children": [
+    {
+      "depth": 2,
+      "line": 45,
+      "name": "Concepts",
+      "children": [
+        {
+          "depth": 3,
+          "line": 101,
+          "name": "Singular and temporal"
+        },
+        {
+          "depth": 3,
+          "line": 151,
+          "name": "Plural and temporal"
+        }
+      ]
+    }
+  ]
+}
