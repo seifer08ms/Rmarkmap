@@ -20,7 +20,7 @@ HTMLWidgets.widget({
     renderValue: function(el, x) {
         var elementId = el.id;
         //console.log(x.data);
-        var data = JSON.parse(x.data);
+        var data = parsemd(x.data);
         // select the svg element and remove existing children
         var svg = d3.select(el).select("svg");
         svg.selectAll("*").remove();

@@ -8,6 +8,7 @@ dependencies:
     src: htmlwidgets/lib/markmap-0.3.3
     script:
       - view.mindmap.js
+      - plugins/parsemd.min.js
     stylesheet:
       - view.mindmap.css
 
