@@ -4,11 +4,11 @@
 \alias{markmap}
 \title{Create a markmap widget}
 \usage{
-markmap(json, width = NULL, height = NULL, elementId = NULL,
+markmap(path, width = NULL, height = NULL, elementId = NULL,
   options = markmapOption())
 }
 \arguments{
-\item{json}{the path of json file}
+\item{path}{the path of markdown file}
 
 \item{width}{the width of the markmap}
 
@@ -25,7 +25,7 @@ The widget can be rendered on HTML pages generated from
 R Markdown,Shiny,or other applications.
 }
 \examples{
-gtor.json<-system.file('examples/gtor.json',package = 'Rmarkmap')
-markmap(gtor.json)
+md<-system.file('examples/test.md',package = 'Rmarkmap')
+markmap(md)
 }
 
