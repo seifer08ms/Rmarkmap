@@ -81,7 +81,7 @@ markmapOption <- function(preset=NULL,nodeHeight=20,
         x[!unlist(lapply(x, is.null))]
     }
     if(!is.null(preset)&&(preset=='default'|preset=='colorful')){
-        filterNULL(list(preset=preset))
+        filterNULL(list(preset=preset,autoFit=TRUE))
     }else{
         if (is.null(layout)||(layout!='tree')){
             warning('Currenly, only tree layout is supported. Changing to tree layout...')
@@ -95,7 +95,9 @@ markmapOption <- function(preset=NULL,nodeHeight=20,
                         layout='tree',
                         color=color,
                         linkShape=linkShape,
-                        renderer=renderer,...))
+                        renderer=renderer,
+                        autoFit=TRUE,
+                        ...))
     }
 
 }
